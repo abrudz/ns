@@ -1,0 +1,47 @@
+ ∆NS_QA←{
+     New←⎕NS∘⍬⊣⎕EX
+     Is←⍵ Stop∘(⎕JSON⍠'Dialect' 'JSON5')
+     ok←⍬
+
+⍝ monadic
+     ok,←'{}'Is ∆NS'' ⍝ nothing
+     ok,←'{name1:"global1"}'Is ∆NS'name1'                         ⍝ use global
+     ok,←'{name1:"global1"}'Is ∆NS⊂'name1'                        ⍝ use global
+     ok,←'{name1:"global1",name2:"global2"}'Is ∆NS'name1' 'name2' ⍝ use globals
+     ok,←'{name1:"value1"}'Is ∆NS⊂'name1' 'value1'                                   ⍝ set val
+     ok,←'{name1:"value1",name2:"value2"}'Is ∆NS('name1' 'value1')('name2' 'value2') ⍝ set vals
+     ok,←'{name1:"value1",name2:"global2"}'Is ∆NS('name1' 'value1')'name2'    ⍝ set val and use global
+     ok,←'{name1:"value1",name2:"global2"}'Is ∆NS('name1' 'value1')(⊂'name2') ⍝ set val and use global
+
+⍝ dotted ((⎕NS ⍬).⎕NG)
+     ok,←'{}'Is(⎕NS ⍬)_ ∆NS'' ⍝ nothing
+     ok,←'{name1:"global1"}'Is(⎕NS ⍬)_ ∆NS'name1'                         ⍝ use global
+     ok,←'{name1:"global1"}'Is(⎕NS ⍬)_ ∆NS⊂'name1'                        ⍝ use global
+     ok,←'{name1:"global1",name2:"global2"}'Is(⎕NS ⍬)_ ∆NS'name1' 'name2' ⍝ use globals
+     ok,←'{name1:"value1"}'Is(⎕NS ⍬)_ ∆NS⊂'name1' 'value1'                                   ⍝ set val
+     ok,←'{name1:"value1",name2:"value2"}'Is(⎕NS ⍬)_ ∆NS('name1' 'value1')('name2' 'value2') ⍝ set vals
+     ok,←'{name1:"value1",name2:"global2"}'Is(⎕NS ⍬)_ ∆NS('name1' 'value1')'name2'    ⍝ set val and use global
+     ok,←'{name1:"value1",name2:"global2"}'Is(⎕NS ⍬)_ ∆NS('name1' 'value1')(⊂'name2') ⍝ set val and use global
+
+⍝ ref ⍺
+     ok,←'{}'Is(⎕NS ⍬)∆NS'' ⍝ nothing
+     ok,←'{name1:"global1"}'Is(⎕NS ⍬)∆NS'name1'                         ⍝ use global
+     ok,←'{name1:"global1"}'Is(⎕NS ⍬)∆NS⊂'name1'                        ⍝ use global
+     ok,←'{name1:"global1",name2:"global2"}'Is(⎕NS ⍬)∆NS'name1' 'name2' ⍝ use globals
+     ok,←'{name1:"value1"}'Is(⎕NS ⍬)∆NS⊂'name1' 'value1'                                   ⍝ set val
+     ok,←'{name1:"value1",name2:"value2"}'Is(⎕NS ⍬)∆NS('name1' 'value1')('name2' 'value2') ⍝ set vals
+     ok,←'{name1:"value1",name2:"global2"}'Is(⎕NS ⍬)∆NS('name1' 'value1')'name2'    ⍝ set val and use global
+     ok,←'{name1:"value1",name2:"global2"}'Is(⎕NS ⍬)∆NS('name1' 'value1')(⊂'name2') ⍝ set val and use global
+
+⍝ name ⍺
+     ok,←'{}'Is name⊣(New'name')∆NS'' ⍝ nothing
+     ok,←'{name1:"global1"}'Is name⊣(New'name')∆NS'name1'                         ⍝ use global
+     ok,←'{name1:"global1"}'Is name⊣(New'name')∆NS⊂'name1'                        ⍝ use global
+     ok,←'{name1:"global1",name2:"global2"}'Is name⊣(New'name')∆NS'name1' 'name2' ⍝ use globals
+     ok,←'{name1:"value1"}'Is name⊣(New'name')∆NS⊂'name1' 'value1'                                   ⍝ set val
+     ok,←'{name1:"value1",name2:"value2"}'Is name⊣(New'name')∆NS('name1' 'value1')('name2' 'value2') ⍝ set vals
+     ok,←'{name1:"value1",name2:"global2"}'Is name⊣(New'name')∆NS('name1' 'value1')'name2'    ⍝ set val and use global
+     ok,←'{name1:"value1",name2:"global2"}'Is name⊣(New'name')∆NS('name1' 'value1')(⊂'name2') ⍝ set val and use global
+
+     ∧/ok
+ }

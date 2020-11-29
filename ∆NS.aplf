@@ -1,0 +1,45 @@
+ ∆NS←{ ⍝ ⎕NS ─ allows name-value pairs and ref left arg
+
+     ⍝ LEFT ARG specifies what target to populate:
+     ⍝ (nothing) ⍝ a new unnamed ns
+     ⍝ ref       ⍝ an existing namespace
+     ⍝ name      ⍝ a namespace of this name (create if missing)
+
+     ⍝ RIGHT ARG specifies what to put into the target:
+     ⍝ (empty vector) ⍝ nothing
+     ⍝ name1          ⍝ copy "name1" from the calling space
+     ⍝ name1 name2    ⍝ copy "name1" and "name2" from the calling space
+     ⍝ ⊂name1         ⍝ copy "name1" from the calling space
+     ⍝ ⊂name1 value1  ⍝ "name1" with the value "value1"
+     ⍝ (name1 value1)name2          ⍝ "name1" with the value "value1" and copy "name2" from the calling space
+     ⍝ (name1 value1)(⊂name2)       ⍝ "name1" wit the value "value1" and copy name2 from the calling space
+     ⍝ (name1 value1)(name2 value2) ⍝ "name1" with the value "value1" and "name2" with the value "value2"
+
+     ⍝ RESULT:
+     ⍝ shy name if left arg is name
+     ⍝ not-shy ref otherwise
+
+     ⎕ML←1
+     ⍺←⊢ ⍝ default to unnamed namespace
+     Return←{_←⍕⍵}⍣(2∊⎕NC'⍺') ⍝ shy string?
+     parent←⊃⎕RSI
+     NS←parent.⎕NS
+     Assign←{
+         String ⍵:⍵ ⍺⍺ ⍺⍎⍵
+         String↑⍵:⍺(⊢⍺⍺⍎)↑⍵
+         ⍺⍺/⍵
+     }
+     Char←80 82 160 320∊⍨⎕DR
+     String←Char∧1≥≢⍤⍴
+
+     _∆NS←{
+         0=⍺⍺.⎕NC'⍺':⍵ ∇⍨NS ⍬ ⍝ ensure dyadic
+         Char ⍺:⍵ ∇⍨⍺⍺⍎⍺⊣⍺ NS ⍬ ⍝ ensure ref
+         0=≢⍵:⍺
+         String ⍵:⍺⊣'ns'NS ⍵⊣ns←⍺
+         ∧/String¨⍵:⍺⊣'ns'NS ⍵⊣ns←⍺
+
+         ⍺⊣⍺⍺ ⍺.{⍎⍺,'←⍵'}Assign¨⊂⍣(2=|≡⍵)⊢⍵
+     }
+     Return ⍺(parent _∆NS)⍵
+ }

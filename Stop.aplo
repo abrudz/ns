@@ -1,0 +1,1 @@
+Stop←{⍺≡⍵:1 ⋄ ⍺⍺:⎕SIGNAL⊂('EN' 8)('EM' 'TEST FAILURE')('Message'('Result was ',⎕SE.Dyalog.Utils.repObj ⍵)) ⋄ 0}
