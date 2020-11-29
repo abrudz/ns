@@ -5,59 +5,71 @@
 
 ⍝ monadic
      ok,←(0⍴⊂'')Is ∆NG'' ⍝ nothing
-     ok,←'global1'Is ∆NG'name1'                   ⍝ use global
-     ok,←(⊂'global1')Is ∆NG⊂'name1'               ⍝ use global
-     ok,←'global1' 'global2'Is ∆NG'name1' 'name2' ⍝ use globals
-     ok,←'global1'Is ∆NG⊂'name1' 'value1'         ⍝ use global
-     ok,←'value1'Is ∆NG⊂'nameX' 'value1'          ⍝ use fallback
-     ok,←'global1' 'global2'Is ∆NG('name1' 'value1')'name2'            ⍝ use globals
-     ok,←'global1' 'global2'Is ∆NG('name1' 'value1')(⊂'name2')         ⍝ use globals
-     ok,←'global1' 'global2'Is ∆NG('name1' 'value1')('name2' 'value2') ⍝ use globals
-     ok,←'value1' 'global2'Is ∆NG('nameX' 'value1')'name2'             ⍝ use fallback and global
-     ok,←'value1' 'global2'Is ∆NG('nameX' 'value1')(⊂'name2')          ⍝ use fallback and global
-     ok,←'global1' 'value2'Is ∆NG('name1' 'value1')('nameY' 'value2')  ⍝ use global and fallback
+     ok,←'global1'Is ∆NG'name1'                    ⍝ use global
+     ok,←(⊂'global1')Is ∆NG⊂'name1'                ⍝ use global encl
+     ok,←'global1' 'global2'Is ∆NG'name1' 'name2'  ⍝ use globals
+     ok,←'global1' 'global2'Is ∆NG↑'name1' 'name2' ⍝ use globals mat
+     ok,←'global1'Is ∆NG⊂'name1' 'value1'          ⍝ use global
+     ok,←'value1'Is ∆NG⊂'nameX' 'value1'           ⍝ use fallback
+     ok,←'global1' 'global2'Is ∆NG('name1' 'value1')'name2'             ⍝ use globals
+     ok,←'global1' 'global2'Is ∆NG('name1' 'value1')(⊂'name2')          ⍝ use globals encl
+     ok,←'global1' 'global2'Is ∆NG('name1' 'value1')('name2' 'value2')  ⍝ use globals
+     ok,←'global1' 'global2'Is ∆NG(↑'name1' 'name2')('value1' 'value2') ⍝ use globals mat
+     ok,←'value1' 'global2'Is ∆NG('nameX' 'value1')'name2'              ⍝ use fallback and global
+     ok,←'value1' 'global2'Is ∆NG('nameX' 'value1')(⊂'name2')           ⍝ use fallback and global encl
+     ok,←'global1' 'value2'Is ∆NG('name1' 'value1')('nameY' 'value2')   ⍝ use global and fallback
+     ok,←'global1' 'value2'Is ∆NG(↑'name1' 'nameY')('value1' 'value2')  ⍝ use global and fallback mat
 
 ⍝ dotted (⎕THIS.⎕NG)
      ok,←(0⍴⊂'')Is ⎕THIS _ ∆NG'' ⍝ nothing
-     ok,←'global1'Is ⎕THIS _ ∆NG'name1'                   ⍝ use global
-     ok,←(⊂'global1')Is ⎕THIS _ ∆NG⊂'name1'               ⍝ use global
-     ok,←'global1' 'global2'Is ∆NG'name1' 'name2' ⍝ use globals
-     ok,←'global1'Is ⎕THIS _ ∆NG⊂'name1' 'value1'         ⍝ use global
-     ok,←'value1'Is ⎕THIS _ ∆NG⊂'nameX' 'value1'          ⍝ use fallback
-     ok,←'global1' 'global2'Is ⎕THIS _ ∆NG('name1' 'value1')'name2'            ⍝ use globals
-     ok,←'global1' 'global2'Is ⎕THIS _ ∆NG('name1' 'value1')(⊂'name2')         ⍝ use globals
-     ok,←'global1' 'global2'Is ⎕THIS _ ∆NG('name1' 'value1')('name2' 'value2') ⍝ use globals
-     ok,←'value1' 'global2'Is ⎕THIS _ ∆NG('nameX' 'value1')'name2'             ⍝ use fallback and global
-     ok,←'value1' 'global2'Is ⎕THIS _ ∆NG('nameX' 'value1')(⊂'name2')          ⍝ use fallback and global
-     ok,←'global1' 'value2'Is ⎕THIS _ ∆NG('name1' 'value1')('nameY' 'value2')  ⍝ use global and fallback
+     ok,←'global1'Is ⎕THIS _ ∆NG'name1'            ⍝ use global
+     ok,←(⊂'global1')Is ⎕THIS _ ∆NG⊂'name1'        ⍝ use global encl
+     ok,←'global1' 'global2'Is ∆NG'name1' 'name2'  ⍝ use globals
+     ok,←'global1' 'global2'Is ∆NG↑'name1' 'name2' ⍝ use globals mat
+     ok,←'global1'Is ⎕THIS _ ∆NG⊂'name1' 'value1'  ⍝ use global with fallback
+     ok,←'value1'Is ⎕THIS _ ∆NG⊂'nameX' 'value1'   ⍝ use fallback
+     ok,←'global1' 'global2'Is ⎕THIS _ ∆NG('name1' 'value1')'name2'             ⍝ use globals
+     ok,←'global1' 'global2'Is ⎕THIS _ ∆NG('name1' 'value1')(⊂'name2')          ⍝ use globals encl
+     ok,←'global1' 'global2'Is ⎕THIS _ ∆NG('name1' 'value1')('name2' 'value2')  ⍝ use globals with fallback
+     ok,←'global1' 'global2'Is ⎕THIS _ ∆NG(↑'name1' 'name2')('value1' 'value2') ⍝ use globals with fallback mat
+     ok,←'value1' 'global2'Is ⎕THIS _ ∆NG('nameX' 'value1')'name2'              ⍝ use fallback and global
+     ok,←'value1' 'global2'Is ⎕THIS _ ∆NG('nameX' 'value1')(⊂'name2')           ⍝ use fallback and global encl
+     ok,←'global1' 'value2'Is ⎕THIS _ ∆NG('name1' 'value1')('nameY' 'value2')   ⍝ use global and fallback
+     ok,←'global1' 'value2'Is ⎕THIS _ ∆NG(↑'name1' 'nameY')('value1' 'value2')  ⍝ use global and fallback mat
 
 ⍝ ref ⍺
      ok,←(0⍴⊂'')Is ⎕THIS ∆NG'' ⍝ nothing
-     ok,←'global1'Is ⎕THIS ∆NG'name1'                   ⍝ use global
-     ok,←(⊂'global1')Is ⎕THIS ∆NG⊂'name1'               ⍝ use global
-     ok,←'global1' 'global2'Is ⎕THIS ∆NG'name1' 'name2' ⍝ use globals
-     ok,←'global1'Is ⎕THIS ∆NG⊂'name1' 'value1'         ⍝ use global
-     ok,←'value1'Is ⎕THIS ∆NG⊂'nameX' 'value1'          ⍝ use fallback
-     ok,←'global1' 'global2'Is ⎕THIS ∆NG('name1' 'value1')'name2'            ⍝ use globals
-     ok,←'global1' 'global2'Is ⎕THIS ∆NG('name1' 'value1')(⊂'name2')         ⍝ use globals
-     ok,←'global1' 'global2'Is ⎕THIS ∆NG('name1' 'value1')('name2' 'value2') ⍝ use globals
-     ok,←'value1' 'global2'Is ⎕THIS ∆NG('nameX' 'value1')'name2'             ⍝ use fallback and global
-     ok,←'value1' 'global2'Is ⎕THIS ∆NG('nameX' 'value1')(⊂'name2')          ⍝ use fallback and global
-     ok,←'global1' 'value2'Is ⎕THIS ∆NG('name1' 'value1')('nameY' 'value2')  ⍝ use global and fallback
+     ok,←'global1'Is ⎕THIS ∆NG'name1'                    ⍝ use global
+     ok,←(⊂'global1')Is ⎕THIS ∆NG⊂'name1'                ⍝ use global encl
+     ok,←'global1' 'global2'Is ⎕THIS ∆NG'name1' 'name2'  ⍝ use globals
+     ok,←'global1' 'global2'Is ⎕THIS ∆NG↑'name1' 'name2' ⍝ use globals mat
+     ok,←'global1'Is ⎕THIS ∆NG⊂'name1' 'value1'          ⍝ use global with fallback
+     ok,←'value1'Is ⎕THIS ∆NG⊂'nameX' 'value1'           ⍝ use fallback
+     ok,←'global1' 'global2'Is ⎕THIS ∆NG('name1' 'value1')'name2'             ⍝ use globals
+     ok,←'global1' 'global2'Is ⎕THIS ∆NG('name1' 'value1')(⊂'name2')          ⍝ use globals encl
+     ok,←'global1' 'global2'Is ⎕THIS ∆NG('name1' 'value1')('name2' 'value2')  ⍝ use globals with fallback
+     ok,←'global1' 'global2'Is ⎕THIS ∆NG(↑'name1' 'name2')('value1' 'value2') ⍝ use globals with fallback mat
+     ok,←'value1' 'global2'Is ⎕THIS ∆NG('nameX' 'value1')'name2'              ⍝ use fallback and global
+     ok,←'value1' 'global2'Is ⎕THIS ∆NG('nameX' 'value1')(⊂'name2')           ⍝ use fallback and global encl
+     ok,←'global1' 'value2'Is ⎕THIS ∆NG('name1' 'value1')('nameY' 'value2')   ⍝ use global and fallback
+     ok,←'global1' 'value2'Is ⎕THIS ∆NG(↑'name1' 'nameY')('value1' 'value2')  ⍝ use global and fallback mat
 
 ⍝ name ⍺
      ok,←(0⍴⊂'')Is(New'name')∆NG'' ⍝ nothing
-     ok,←'global1'Is(New'name')∆NG'name1'                   ⍝ use global
-     ok,←(⊂'global1')Is(New'name')∆NG⊂'name1'               ⍝ use global
-     ok,←'global1' 'global2'Is(New'name')∆NG'name1' 'name2' ⍝ use globals
-     ok,←'global1'Is(New'name')∆NG⊂'name1' 'value1'         ⍝ use global
-     ok,←'value1'Is(New'name')∆NG⊂'nameX' 'value1'          ⍝ use fallback
-     ok,←'global1' 'global2'Is(New'name')∆NG('name1' 'value1')'name2'            ⍝ use globals
-     ok,←'global1' 'global2'Is(New'name')∆NG('name1' 'value1')(⊂'name2')         ⍝ use globals
-     ok,←'global1' 'global2'Is(New'name')∆NG('name1' 'value1')('name2' 'value2') ⍝ use globals
-     ok,←'value1' 'global2'Is(New'name')∆NG('nameX' 'value1')'name2'             ⍝ use fallback and global
-     ok,←'value1' 'global2'Is(New'name')∆NG('nameX' 'value1')(⊂'name2')          ⍝ use fallback and global
-     ok,←'global1' 'value2'Is(New'name')∆NG('name1' 'value1')('nameY' 'value2')  ⍝ use global and fallback
+     ok,←'global1'Is(New'name')∆NG'name1'                    ⍝ use global
+     ok,←(⊂'global1')Is(New'name')∆NG⊂'name1'                ⍝ use global encl
+     ok,←'global1' 'global2'Is(New'name')∆NG'name1' 'name2'  ⍝ use globals
+     ok,←'global1' 'global2'Is(New'name')∆NG↑'name1' 'name2' ⍝ use globals mat
+     ok,←'global1'Is(New'name')∆NG⊂'name1' 'value1'          ⍝ use global with fallback
+     ok,←'value1'Is(New'name')∆NG⊂'nameX' 'value1'           ⍝ use fallback
+     ok,←'global1' 'global2'Is(New'name')∆NG('name1' 'value1')'name2'             ⍝ use globals
+     ok,←'global1' 'global2'Is(New'name')∆NG('name1' 'value1')(⊂'name2')          ⍝ use globals encl
+     ok,←'global1' 'global2'Is(New'name')∆NG('name1' 'value1')('name2' 'value2')  ⍝ use globals with fallback
+     ok,←'global1' 'global2'Is(New'name')∆NG(↑'name1' 'name2')('value1' 'value2') ⍝ use globals with fallback mat
+     ok,←'value1' 'global2'Is(New'name')∆NG('nameX' 'value1')'name2'              ⍝ use fallback and global
+     ok,←'value1' 'global2'Is(New'name')∆NG('nameX' 'value1')(⊂'name2')           ⍝ use fallback and global encl
+     ok,←'global1' 'value2'Is(New'name')∆NG('name1' 'value1')('nameY' 'value2')   ⍝ use global and fallback
+     ok,←'global1' 'value2'Is(New'name')∆NG('name1' 'nameY')('value1' 'value2')   ⍝ use global and fallback mat
 
      ∧/ok
 

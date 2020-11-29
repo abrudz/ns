@@ -1,4 +1,4 @@
-∆NLV←{ ⍝ ⎕NLV ─ Name List with Values
+∆NV←{ ⍝ ⎕NV ─ Name-Values
 ⍝ LEFT ARGUMENT: target namespace (default is calling space)
 ⍝ RIGHT ARGUMENT: like ⎕NL's
 ⍝ RESULT:

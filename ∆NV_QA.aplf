@@ -1,0 +1,44 @@
+ ∆NV_QA←{
+     ⎕ML←1
+     New←⎕NS∘'name1' 'name2'⊣⎕EX
+     Is←⍵ Stop
+     ok←⍬
+
+⍝ monadic
+     ok,←(↑'name1' 'name2')('global1' 'global2')Is ∆NV 2    ⍝ inverted
+     ok,←('name1' 'global1')('name2' 'global2')Is ∆NV ¯2    ⍝ pair
+     ok,←(↑'name1' 'name2')('global1' 'global2')Is ∆NV 1 2  ⍝ inverteds
+     ok,←('name1' 'global1')('name2' 'global2')Is ∆NV ¯1 ¯2 ⍝ pairs
+     ok,←('name1' 'global1')('name2' 'global2')Is ∆NV ¯1 2  ⍝ both → pairs
+     ok,←(0 0⍴'')⍬ Is ∆NV 8                                 ⍝ none, inverted
+     ok,←(0⍴⊂'' 0)Is ∆NV ¯8                                 ⍝ none, pair
+
+⍝ dotted ((⎕NS ⍬).⎕NG)
+     ok,←(↑'name1' 'name2')('global1' 'global2')Is ⎕THIS _ ∆NV 2    ⍝ inverted
+     ok,←('name1' 'global1')('name2' 'global2')Is ⎕THIS _ ∆NV ¯2    ⍝ pair
+     ok,←(↑'name1' 'name2')('global1' 'global2')Is ⎕THIS _ ∆NV 1 2  ⍝ inverteds
+     ok,←('name1' 'global1')('name2' 'global2')Is ⎕THIS _ ∆NV ¯1 ¯2 ⍝ pairs
+     ok,←('name1' 'global1')('name2' 'global2')Is ⎕THIS _ ∆NV ¯1 2  ⍝ both → pairs
+     ok,←(0 0⍴'')⍬ Is ⎕THIS _ ∆NV 8                                 ⍝ none, inverted
+     ok,←(0⍴⊂'' 0)Is ⎕THIS _ ∆NV ¯8                                 ⍝ none, pair
+
+⍝ ref ⍺
+     ok,←(↑'name1' 'name2')('global1' 'global2')Is ⎕THIS ∆NV 2    ⍝ inverted
+     ok,←('name1' 'global1')('name2' 'global2')Is ⎕THIS ∆NV ¯2    ⍝ pair
+     ok,←(↑'name1' 'name2')('global1' 'global2')Is ⎕THIS ∆NV 1 2  ⍝ inverteds
+     ok,←('name1' 'global1')('name2' 'global2')Is ⎕THIS ∆NV ¯1 ¯2 ⍝ pairs
+     ok,←('name1' 'global1')('name2' 'global2')Is ⎕THIS ∆NV ¯1 2  ⍝ both → pairs
+     ok,←(0 0⍴'')⍬ Is ⎕THIS ∆NV 8                                 ⍝ none, inverted
+     ok,←(0⍴⊂'' 0)Is ⎕THIS ∆NV ¯8                                 ⍝ none, pair
+
+⍝ name ⍺
+     ok,←(↑'name1' 'name2')('global1' 'global2')Is(New'name')∆NV 2    ⍝ inverted
+     ok,←('name1' 'global1')('name2' 'global2')Is(New'name')∆NV ¯2    ⍝ pair
+     ok,←(↑'name1' 'name2')('global1' 'global2')Is(New'name')∆NV 1 2  ⍝ inverteds
+     ok,←('name1' 'global1')('name2' 'global2')Is(New'name')∆NV ¯1 ¯2 ⍝ pairs
+     ok,←('name1' 'global1')('name2' 'global2')Is(New'name')∆NV ¯1 2  ⍝ both → pairs
+     ok,←(0 0⍴'')⍬ Is(New'name')∆NV 8                                 ⍝ none, inverted
+     ok,←(0⍴⊂'' 0)Is(New'name')∆NV ¯8                                 ⍝ none, pair
+
+     ∧/ok
+ }
