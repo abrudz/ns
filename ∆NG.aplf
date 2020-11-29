@@ -24,15 +24,13 @@
      0=≢⍵:0⍴⊂''
      parent←⊃⎕RSI
      ⍺←parent                ⍝ ensure dyadic
-     Char←80 82 160 320∊⍨⎕DR
-     String←Char∧1≥≢⍤⍴
      (String ⍺)∧9=parent.⎕NC⍕⍺:⍵ ∇⍨⍎⍺ ⍝ ensure ref
      Exec←⍺.{
          0::⎕SIGNAL⊂⎕DMX.(('EN'EN)('Message'Message))
          ¯1=⎕NC'⍵':⎕SIGNAL⊂('EN' 11)('Message'('Invalid name: ',⍵))
          0∧.=⎕NC'⍺'⍵:⎕SIGNAL⊂('EN' 6)('Message'('Undefined name: ',⍵))
          0=⎕NC ⍵:⍺
-         1 2 9∊⍨⎕NC ⍵:⍎⍵
+         1 2 8 9∊⍨⎕NC ⍵:⍎⍵
          ⎕SIGNAL⊂('EN' 2)('Message'('Invalid value: ',⍵))
      }
      String ⍵:Exec ⍵

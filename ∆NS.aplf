@@ -24,22 +24,23 @@
      Return←{_←⍕⍵}⍣(2∊⎕NC'⍺') ⍝ shy string?
      parent←⊃⎕RSI
      NS←parent.⎕NS
-     Assign←{
+     On←{
          String ⍵:⍵ ⍺⍺ ⍺⍎⍵
          String↑⍵:⍺(⊢⍺⍺⍎)↑⍵
          ⍺⍺/⍵
      }
-     Char←80 82 160 320∊⍨⎕DR
-     String←Char∧1≥≢⍤⍴
+     Ref←(326=⎕DR)∧0=≡
 
      _∆NS←{
          0=⍺⍺.⎕NC'⍺':⍵ ∇⍨NS ⍬ ⍝ ensure dyadic
          Char ⍺:⍵ ∇⍨⍺⍺⍎⍺⊣⍺ NS ⍬ ⍝ ensure ref
          0=≢⍵:⍺
-         String ⍵:⍺⊣'ns'NS ⍵⊣ns←⍺
-         ∧/String¨⍵:⍺⊣'ns'NS ⍵⊣ns←⍺
-
-         ⍺⊣⍺⍺ ⍺.{⍎⍺,'←⍵'}Assign¨⊂⍣(2=|≡⍵)⊢⍵
+         (String¨∧.∨Ref)⊆⍵:⍺⊣'ns'⎕NS ⍵⊣ns←⍺
+         Assign←⍺.{
+             0 2 9∊⍨⎕NC ⍺:⍎⍺,'←⍵'
+             ⎕SIGNAL⊂('EN' 6)('ENX' 7)('Message'('Can''t change nameclass on assignment: ',⍺))
+         }
+         ⍺⊣⍺⍺ Assign On¨⊂⍣(2=|≡⍵)⊢⍵
      }
      Return ⍺(parent _∆NS)⍵
  }
